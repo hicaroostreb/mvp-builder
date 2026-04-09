@@ -2,10 +2,12 @@
   "version": 2,
   "builds": [
     { "src": "api/**/*.js", "use": "@vercel/node" },
-    { "src": "src/**", "use": "@vercel/static" }
+    { "src": "src/index.html", "use": "@vercel/static" },
+    { "src": "src/styles/**", "use": "@vercel/static" },
+    { "src": "src/scripts/**", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)", "dest": "/src/$1" }
+    { "src": "/(.*)", "dest": "/src/$1", "check": true }
   ]
 }
