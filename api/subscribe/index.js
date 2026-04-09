@@ -42,7 +42,7 @@ export default async function handler(req, res) {
             Name: name.trim(),
             Email: email.trim().toLowerCase(),
             Phone: phone?.trim() || '',
-            Created: new Date().toISOString(),
+            Created: new Date().toISOString().split('T')[0],
           },
         }),
       }
