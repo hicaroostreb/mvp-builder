@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, email } = req.body;
+  const { name, email, phone } = req.body;
 
   if (!name || !name.trim()) {
     return res.status(400).json({ error: 'Name is required' });
@@ -41,6 +41,7 @@ export default async function handler(req, res) {
           fields: {
             Name: name.trim(),
             Email: email.trim().toLowerCase(),
+            Phone: phone?.trim() || '',
             Created: new Date().toISOString(),
           },
         }),

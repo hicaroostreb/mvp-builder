@@ -1,10 +1,6 @@
-const form = document.getElementById('waitlist-form');
-const submitBtn = document.getElementById('submit-btn');
-const btnText = document.querySelector('.btn-text');
-const btnLoader = document.querySelector('.btn-loader');
-const messageEl = document.getElementById('form-message');
-const emailInput = document.getElementById('email');
-const nameInput = document.getElementById('name');
+const form = document.querySelector('.modal-form');
+const submitBtn = document.querySelector('.modal-submit');
+const formWrap = document.getElementById('modalFormWrap');
 
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -12,30 +8,22 @@ function validateEmail(email) {
 
 function setLoading(loading) {
   submitBtn.disabled = loading;
-  btnText.classList.toggle('hidden', loading);
-  btnLoader.classList.toggle('hidden', !loading);
+  submitBtn.style.opacity = loading ? '0.5' : '';
+  submitBtn.style.cursor = loading ? 'not-allowed' : '';
 }
 
-function showMessage(text, type) {
-  messageEl.textContent = text;
-  messageEl.className = `message ${type}`;
-  messageEl.classList.remove('hidden');
-}
-
-form.addEventListener('submit', async (e) => {
+form?.addEventListener('submit', async (e) => {
   e.preventDefault();
-  messageEl.classList.add('hidden');
 
-  const name = nameInput.value.trim();
-  const email = emailInput.value.trim();
+  const name = document.getElementById('wlName').value.trim();
+  const email = document.getElementById('wlEmail').value.trim();
+  const phone = document.getElementById('wlPhone').value.trim();
 
-  if (!name) {
-    showMessage('Please enter your name.', 'error');
+  if (!name || !email || !phone) {
     return;
   }
 
   if (!validateEmail(email)) {
-    showMessage('Please enter a valid email address.', 'error');
     return;
   }
 
@@ -45,7 +33,7 @@ form.addEventListener('submit', async (e) => {
     const res = await fetch('/api/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email }),
+      body: JSON.stringify({ name, email, phone }),
     });
 
     const data = await res.json();
@@ -54,10 +42,9 @@ form.addEventListener('submit', async (e) => {
       throw new Error(data.error || 'Something went wrong.');
     }
 
-    showMessage("You're on the list! We'll be in touch soon.", 'success');
-    form.reset();
+    formWrap.classList.add('hide');
   } catch (err) {
-    showMessage(err.message || 'Failed to join. Please try again.', 'error');
+    console.error(err);
   } finally {
     setLoading(false);
   }
