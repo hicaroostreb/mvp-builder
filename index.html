@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build Faster. Ship Sooner.</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <h1>Build Faster. Ship Sooner.</h1>
+      <p class="subheadline">The MVP builder that helps you go from idea to production in record time.</p>
+    </section>
+
+    <section class="features">
+      <div class="feature-card">
+        <h3>Rapid Development</h3>
+        <p>Pre-configured templates and tools to bootstrap your project in minutes, not days.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Production Ready</h3>
+        <p>Built-in best practices for security, scalability, and observability out of the box.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Ship Sooner</h3>
+        <p>One-command deploys to get your MVP in front of users faster than ever.</p>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <form id="waitlist-form">
+        <div class="form-group">
+          <input type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+        <button type="submit" id="submit-btn">
+          <span class="btn-text">Join the Waitlist</span>
+          <span class="btn-loader hidden"></span>
+        </button>
+      </form>
+      <p id="form-message" class="message hidden"></p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
