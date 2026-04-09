@@ -873,7 +873,7 @@ footer { background: var(--cream-dark); padding: 40px 52px; display: flex; align
 <script>
 // ── GOOGLE APPS SCRIPT ENDPOINT ──
 // Substitua pela URL gerada no Apps Script após o deploy
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxLJpxSEZJLvz0qlFfevYmRB1B-rhO9OMO5C2KHvRrnbxFs5N4pTMup7jKvq-5_Clxtyw/exec';
+const API_URL = '/api/subscribe';
 
 let currentPlan = '';
 
@@ -926,18 +926,16 @@ async function submitWaitlist() {
   };
 
   try {
-    await fetch(APPS_SCRIPT_URL, {
+    const res = await fetch(API_URL, {
       method: 'POST',
-      mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
+    if (!res.ok) throw new Error('Request failed');
   } catch(err) {
-    // no-cors won't throw on success, only on network error
     console.error('Fetch error:', err);
   }
 
-  // Show success regardless (no-cors doesn't return readable response)
   spinner.style.display = 'none';
   document.getElementById('modalFormWrap').classList.add('hide');
   document.getElementById('modalSuccess').classList.add('show');
